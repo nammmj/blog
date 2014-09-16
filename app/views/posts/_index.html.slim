@@ -1,0 +1,36 @@
+table class="table table-hover table-bordered list-posts row"
+	tr
+	 	th class="th-image col-md-1"
+			|Image
+		th class="col-md-5"
+	 		= sortable "title"
+	 	th class="col-md-2"
+	 		|Author
+	 	th class="col-md-2"
+	 		= sortable "created_at", "Date" 	
+	 	th colspan="3" class="center col-md-2"
+	 		|Action		
+	- @posts.each do |post|
+		tr
+			td class="image-post"
+				= image_tag('134367529.jpg', :class => "img-responsive") if post.image.blank?
+				= image_tag(post.image_url,  :class => "img-responsive") unless post.image.blank?
+				end
+			td
+				h4 class="black-color"
+					= link_to "#{post.title}", post_path(post)
+				p class="gray-color"
+					= post.description
+			td class="center"
+				= link_to "#{post.user.username}", user_path(post.user)
+			td class="center"
+				= post.created_at		
+			td
+				= link_to "Show",       post_path(post)
+			- if can? :update, post	
+				td	
+					= link_to "Edit",   edit_post_path(post), :method => 'Get'
+			- if can? :destroy, post
+				td	
+					= link_to "Delete", post_path(post), 	  :method => 'Delete', data: {confirm: 'Do you want to delte this post'}
+= will_paginate @posts				

@@ -1,0 +1,7 @@
+h1 class="page-header"
+	= @post.title
+div class="gray-color"
+	= @post.content.html_safe
+div class="form-group"	
+	
+	= link_to "Back", root_url, :class => "btn btn-primary"

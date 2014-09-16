@@ -1,0 +1,26 @@
+header
+  nav class="navbar navbar-default navbar-inverse"
+    div class="container"
+      div class="container-fluid"
+        div class="navbar-header"
+          = link_to 'Home', root_path, class: 'navbar-brand'
+        div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+          ul class="nav navbar-nav"
+            - if user_signed_in?
+              li 
+                = link_to "#{current_user.username}", edit_user_registration_path(current_user)
+              li
+                = link_to "Sign out", destroy_user_session_path, method: 'delete'
+              li
+                = link_to "My posts", user_path(current_user), method: 'GET' 
+              li
+                = link_to "Add new post", new_post_path, method: 'GET'  
+              li
+                = link_to "List Author", users_path, method: 'GET' 
+                
+            - else
+              li
+                = link_to "Sign in", new_user_session_path, method: 'GET'
+              li  
+                = link_to "Sin up", new_user_registration_path, method: 'GET'
+       

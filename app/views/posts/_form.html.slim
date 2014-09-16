@@ -1,0 +1,8 @@
+= simple_form_for @post do |f|
+	= f.input :title
+	= f.input :description
+	= f.input :content, as:   :text, input_html: {class: 'tinymce'}
+	= f.input :image,   type: :file
+	= f.input :active,  as:   :radio_buttons, :checked => ['Yes', true]
+	= f.button :submit, as:   :button, class: "btn btn-primary"
+= tinymce  

@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
 	before_filter :authenticate_user!, :except => [:show, :index]
 	load_and_authorize_resource # Authenticate with Gem Cancan
-	helper_method :sort_column, :sort_direction
 
 	def index
-  	@posts = Post.all.paginate(:page =>params[:page]).order(sort_column + ' ' + sort_direction)
+		@search_value = params[:search][:search_value] if params[:search].present?
+
+  	@posts = Post.search(@search_value).paginate(:page =>params[:page]).order(sort_column + ' ' + sort_direction)
   end
 	def new
 		@post = current_user.posts.new()
@@ -20,7 +21,8 @@ class PostsController < ApplicationController
 	end
 
 	def show
-		@post = Post.find(params[:id])	
+		@post = Post.find(params[:id])
+		@comments = @post.comments if @post.comments.present?
 	end
 
 	def edit
@@ -46,10 +48,5 @@ class PostsController < ApplicationController
 		def post_params
 			params.require(:post).permit(:title, :description, :content, :image, :active)			
 		end
-		def sort_column
-			Post.column_names.include?(params[:sort]) ? params[:sort] : "created_at"			
-		end
-		def sort_direction
-			%w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-		end
 end
+		

@@ -5,3 +5,24 @@ div class="gray-color"
 div class="form-group"	
 	
 	= link_to "Back", root_url, :class => "btn btn-primary"
+h2 class="page-header"
+  |Comments
+- if @comments.present? 
+  - @comments.each do |comment|  
+    p
+    <strong>Commenter:</strong> 
+    = comment.commenter
+    p
+    <strong>Body:</strong> 
+    = comment.body
+    end
+
+
+
+h2 class="page-header"
+  |Creat comment
+div class="col-md-6"  
+  = simple_form_for ([@post, @post.comments.build]), :method => "POST" do |f|
+    = f.input  :commenter
+    = f.input  :body
+    = f.submit :submit, as: :button

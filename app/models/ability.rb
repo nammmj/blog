@@ -33,6 +33,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
+      can :read, :all
     end
     if user.role == "author"
       can :create, Post

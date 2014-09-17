@@ -23,4 +23,8 @@ header
                 = link_to "Sign in", new_user_session_path, method: 'GET'
               li  
                 = link_to "Sin up", new_user_registration_path, method: 'GET'
-       
+          div class="navbar-form navbar-left"
+
+            = simple_form_for :search, url: posts_path, :method => "get" do |f|
+              = f.input :search_value, label: false
+              = f.button :submit, 'Search'     

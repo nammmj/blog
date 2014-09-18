@@ -18,6 +18,7 @@ gem 'pry-byebug'
 gem 'pry-doc'
 gem 'pry'
 gem 'slim'
+gem 'faker'
 
 # Assets
 gem 'sass-rails', '~> 4.0.3'
@@ -35,6 +36,7 @@ gem 'cancan'
 
 # File upload and image processing
 gem 'carrierwave'
-
-
 gem 'tinymce-rails'
+
+# Recaptcha GEM
+gem 'simple_captcha2', require: 'simple_captcha'

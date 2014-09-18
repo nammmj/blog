@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
 	def show
 		@post = Post.find(params[:id])
-		@comments = @post.comments if @post.comments.present?
+		@comments = @post.comments.order(:created_at => :desc) if @post.comments.present?
 	end
 
 	def edit

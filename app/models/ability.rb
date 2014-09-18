@@ -33,7 +33,7 @@ class Ability
       can :manage, :all
     else
       can :read, :all
-      can :read, :all
+      can :create, Comment
     end
     if user.role == "author"
       can :create, Post
@@ -43,7 +43,9 @@ class Ability
       can :destroy, Post do |post|
         post.try(:user) == user 
       end
-      
+      can :destroy, Comment do |comment|
+        comment.post.try(:user) == user
+      end
     end   
   end
 end

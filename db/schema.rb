@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917061747) do
+ActiveRecord::Schema.define(version: 20140918071041) do
 
   create_table "comments", force: true do |t|
     t.string   "commenter"
@@ -21,12 +21,22 @@ ActiveRecord::Schema.define(version: 20140917061747) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "posts" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "posts", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.text     "content"
+    t.integer  "user_id"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "active",      default: true
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "username"
+    t.string   "role"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -37,8 +47,6 @@ ActiveRecord::Schema.define(version: 20140917061747) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "username"
-    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

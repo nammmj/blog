@@ -15,8 +15,10 @@ h2 class="page-header"
     p
     <strong>Body:</strong> 
     = comment.body
-    end
-
+    - if can? :destroy, comment
+      p
+      = link_to "Delete", post_comment_path(@post, comment), :method => "Delete"
+    div class="page-header"  
 
 
 h2 class="page-header"

@@ -2,14 +2,15 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  load_and_authorize_resource # Authenticate with Gem Cancan
+  #load_and_authorize_resource # Authenticate with Gem Cancan
   helper_method :sort_column, :sort_direction
   
   before_filter do
-    resource = controller_path.singularize.gsub('/', '_').to_sym
+    resource = controller_name.singularize.to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
+
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 

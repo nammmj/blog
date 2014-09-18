@@ -5,9 +5,11 @@ table class="table"
 		th
 			|Email
 		th
+			|Role	
+		th
 			|Posts
 		- if can? :destroy, User	
-			th
+			th colspan = 2
 				|Action
 
 		- @users.each do |user|
@@ -17,9 +19,13 @@ table class="table"
 				td
 					= user.email
 				td
+					= user.role.titleize
+				td
 				 	= link_to "#{user.posts.count}", user_path(user), method: :get 
 				- if can? :destroy, user
 					td
 						= link_to "Delete", user_path(user), method: :Delete, data: {confirm: 'Are you sure'}
-
+				- if can? :active_admin, user
+					td
+						= link_to "Active Admin", user_path(user), method: :put, data: {confirm: 'Are you sure'}
 
